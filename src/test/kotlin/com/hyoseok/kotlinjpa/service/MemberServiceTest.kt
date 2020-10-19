@@ -2,6 +2,7 @@ package com.hyoseok.kotlinjpa.service
 
 import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.repository.MemberRepository
+import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
@@ -35,13 +36,12 @@ internal class MemberServiceTest(
 
         // when
         val memberId: Long = memberService.createMember(username, email, teamName)
-        val member: Member = memberService.findMember(memberId)!!
+        val memberDto: FindMemberDto = memberService.findMember(memberId)!!
 
         // then
-        assertThat(member.id).isEqualTo(memberId)
-        assertThat(member.username).isEqualTo(username)
-        assertThat(member.email).isEqualTo(email)
-        assertThat(member.team.name).isEqualTo(teamName)
+        assertThat(memberDto.username).isEqualTo(username)
+        assertThat(memberDto.email).isEqualTo(email)
+        assertThat(memberDto.teamName).isEqualTo(teamName)
     }
 
     @Test
@@ -56,11 +56,11 @@ internal class MemberServiceTest(
 
         // when
         memberService.updateMember(memberId, changeUsername, changeEmail)
-        val member: Member = memberService.findMember(memberId)!!
+        val memberDto: FindMemberDto = memberService.findMember(memberId)!!
 
         // then
-        assertThat(member.username).isEqualTo(changeUsername)
-        assertThat(member.email).isEqualTo(changeEmail)
+        assertThat(memberDto.username).isEqualTo(changeUsername)
+        assertThat(memberDto.email).isEqualTo(changeEmail)
     }
 
 }
