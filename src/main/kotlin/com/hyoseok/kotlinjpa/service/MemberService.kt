@@ -2,6 +2,7 @@ package com.hyoseok.kotlinjpa.service
 
 import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.entity.Team
+import com.hyoseok.kotlinjpa.repository.MemberQueryRepository
 import com.hyoseok.kotlinjpa.repository.MemberRepository
 import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
 import org.springframework.stereotype.Service
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class MemberService(
+        private val memberQueryRepository: MemberQueryRepository,
         private val memberRepository: MemberRepository
 ) {
 
@@ -18,8 +20,8 @@ class MemberService(
     }
 
     fun findMember(memberId: Long): FindMemberDto? {
-        val member: Member = memberRepository.findWithFetchJoinById(memberId)
-                .orElseThrow { NoSuchElementException("존재하지 않는 회원입니다.") }
+        val member: Member = memberQueryRepository.findWithFetchJoinById(memberId)
+                ?: throw NoSuchElementException("존재하지 않는 회원입니다.")
 
         return FindMemberDto(member.username, member.email, member.team.name)
     }
