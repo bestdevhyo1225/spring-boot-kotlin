@@ -43,4 +43,27 @@ internal class MemberRepositoryTest(
         println("------------- 데이터 접근 후 -------------")
     }
 
+    @Test
+    @DisplayName("Member 엔티티 수정")
+    fun update() {
+        // given
+        val member = memberRepository.save(Member("hyoseok", "test@gmail.com", Team("teamA")));
+
+        entityManager.flush()
+        entityManager.clear()
+
+        // when
+        val findMember = memberRepository.findById(member.id!!)
+                .orElseThrow() { NoSuchElementException("존재하지 않는 회원입니다.") }
+
+        findMember.change("jang hyo seok", "hyoseok@gmail.com")
+
+        entityManager.flush()
+        entityManager.clear()
+
+        // then
+        assertThat(findMember.username).isEqualTo("jang hyo seok")
+        assertThat(findMember.email).isEqualTo("hyoseok@gmail.com")
+    }
+
 }
