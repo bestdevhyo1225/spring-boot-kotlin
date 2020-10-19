@@ -54,7 +54,7 @@ internal class MemberRepositoryTest(
 
         // when
         val findMember = memberRepository.findById(member.id!!)
-                .orElseThrow() { NoSuchElementException("존재하지 않는 회원입니다.") }
+                .orElseThrow { NoSuchElementException("존재하지 않는 회원입니다.") }
 
         findMember.change("jang hyo seok", "hyoseok@gmail.com")
 
