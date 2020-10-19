@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional
 class MemberService(private val memberRepository: MemberRepository) {
 
     @Transactional
-    fun createMember(username: String, email: String, teamName: String): Long? {
+    fun createMember(username: String, email: String, teamName: String): Long {
         val member = Member(username, email, Team(teamName))
-        return memberRepository.save(member).id
+        return memberRepository.save(member).id!!
     }
 
 }
