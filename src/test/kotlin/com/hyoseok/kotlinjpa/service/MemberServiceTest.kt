@@ -56,7 +56,7 @@ internal class MemberServiceTest(
 
         // when
         memberService.updateMember(memberId, changeUsername, changeEmail)
-        val member: Member = memberService.findMember(1L)!!
+        val member: Member = memberService.findMember(memberId)!!
 
         // then
         assertThat(member.username).isEqualTo(changeUsername)
