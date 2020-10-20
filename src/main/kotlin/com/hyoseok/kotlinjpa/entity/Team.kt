@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @DynamicUpdate
-class Team(name: String): BaseTimeEntity() {
+class Team(name: String) : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

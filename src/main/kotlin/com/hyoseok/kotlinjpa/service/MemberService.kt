@@ -5,6 +5,8 @@ import com.hyoseok.kotlinjpa.entity.Team
 import com.hyoseok.kotlinjpa.repository.MemberQueryRepository
 import com.hyoseok.kotlinjpa.repository.MemberRepository
 import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
+import com.hyoseok.kotlinjpa.service.exception.ErrorMessage
+import com.hyoseok.kotlinjpa.service.exception.NotFoundMemberException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -26,9 +28,9 @@ class MemberService(
         * 좌항이 null이면, null을 반환한다.
         * */
         val member: Member = memberQueryRepository.findWithFetchJoinById(memberId)
-                ?: throw NoSuchElementException("존재하지 않는 회원입니다.")
+                ?: throw NotFoundMemberException(ErrorMessage.NOT_FOUND_MEMBER)
 
-        return FindMemberDto(memberId, member.username, member.email, member.team.name)
+        return FindMemberDto(null, member.username, member.email, member.team.name)
     }
 
     @Transactional

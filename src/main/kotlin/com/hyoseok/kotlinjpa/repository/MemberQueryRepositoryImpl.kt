@@ -2,14 +2,12 @@ package com.hyoseok.kotlinjpa.repository
 
 import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.entity.QMember.*
-import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
-import com.querydsl.core.types.Projections
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
 @Repository
-class MemberQueryRepositoryImpl(private val jpaQueryFactory: JPAQueryFactory): MemberQueryRepository {
+class MemberQueryRepositoryImpl(private val jpaQueryFactory: JPAQueryFactory) : MemberQueryRepository {
     override fun findWithFetchJoinById(id: Long): Member? {
         return jpaQueryFactory
                 .selectFrom(member)

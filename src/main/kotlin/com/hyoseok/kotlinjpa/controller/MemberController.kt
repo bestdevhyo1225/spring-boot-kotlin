@@ -30,12 +30,12 @@ class MemberController (
     fun findMember(@PathVariable("id") id: Long): FindMemberResponse {
         val memberDto: FindMemberDto = memberService.findMember(id)!!
 
-        return FindMemberResponse(id, memberDto.username!!, memberDto.email!!, memberDto.teamName!!)
+        return FindMemberResponse(id, memberDto.username, memberDto.email, memberDto.teamName)
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun findMembers(@RequestParam("memberId", required = false, defaultValue = "0") id: Long,
+    fun findMembers(@RequestParam("lastMemberId", required = false, defaultValue = "0") id: Long,
                     @RequestParam("pageSize") pageSize: Long): FindMembersResponse {
         val memberDtos: List<FindMemberDto> = memberService.findMembers(id, pageSize)
 
