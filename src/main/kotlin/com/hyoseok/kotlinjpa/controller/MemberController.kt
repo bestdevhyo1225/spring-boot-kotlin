@@ -3,6 +3,7 @@ package com.hyoseok.kotlinjpa.controller
 import com.hyoseok.kotlinjpa.controller.request.CreateMemberRequest
 import com.hyoseok.kotlinjpa.controller.response.CreateMemberResponse
 import com.hyoseok.kotlinjpa.controller.response.FindMemberResponse
+import com.hyoseok.kotlinjpa.controller.response.FindMembersResponse
 import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.service.MemberService
 import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
@@ -20,6 +21,7 @@ class MemberController (
     @ResponseStatus(HttpStatus.CREATED)
     fun createMember(@Valid @RequestBody request: CreateMemberRequest): CreateMemberResponse {
         val memberId: Long = memberService.createMember(request.username!!, request.email!!, request.teamName!!)
+
         return CreateMemberResponse(memberId)
     }
 
@@ -27,7 +29,17 @@ class MemberController (
     @ResponseStatus(HttpStatus.OK)
     fun findMember(@PathVariable("id") id: Long): FindMemberResponse {
         val memberDto: FindMemberDto = memberService.findMember(id)!!
-        return FindMemberResponse(id, memberDto.username, memberDto.email, memberDto.teamName)
+
+        return FindMemberResponse(id, memberDto.username!!, memberDto.email!!, memberDto.teamName!!)
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    fun findMembers(@RequestParam("memberId", required = false, defaultValue = "0") id: Long,
+                    @RequestParam("pageSize") pageSize: Long): FindMembersResponse {
+        val memberDtos: List<FindMemberDto> = memberService.findMembers(id, pageSize)
+
+        return FindMembersResponse(memberDtos)
     }
 
 }

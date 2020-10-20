@@ -1,9 +1,12 @@
 package com.hyoseok.kotlinjpa.service.dto
 
-class FindMemberDto(username: String, email: String, teamName: String) {
-    val username: String = username
+class FindMemberDto(id: Long, username: String, email: String, teamName: String) {
+    var id: Long? = id
 
-    val email: String = email
+    var username: String? = username
 
-    val teamName: String = teamName
+    var email: String? = email
+
+    var teamName: String? = teamName
+
 }

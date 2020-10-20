@@ -15,15 +15,20 @@ class MemberService(
         private val memberRepository: MemberRepository
 ) {
 
-    fun findMembers(): MutableList<Member> {
-        return memberRepository.findAll()
+    fun findMembers(id: Long, pageSize: Long): List<FindMemberDto> {
+        return memberQueryRepository.pagenationNoOffset(id, pageSize)
+                .map { FindMemberDto(it.id!!, it.username, it.email, it.team.name) }
     }
 
     fun findMember(memberId: Long): FindMemberDto? {
+        /*
+        * ?: 연산자 (Elvis operator)
+        * 좌항이 null이면, null을 반환한다.
+        * */
         val member: Member = memberQueryRepository.findWithFetchJoinById(memberId)
                 ?: throw NoSuchElementException("존재하지 않는 회원입니다.")
 
-        return FindMemberDto(member.username, member.email, member.team.name)
+        return FindMemberDto(memberId, member.username, member.email, member.team.name)
     }
 
     @Transactional
