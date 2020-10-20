@@ -6,9 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
 @Repository
-class MemberQueryRepositoryImpl(
-        private val jpaQueryFactory: JPAQueryFactory
-): MemberQueryRepository {
+class MemberQueryRepositoryImpl(private val jpaQueryFactory: JPAQueryFactory): MemberQueryRepository {
     override fun findWithFetchJoinById(id: Long): Member? {
         return jpaQueryFactory
                 .selectFrom(member)
