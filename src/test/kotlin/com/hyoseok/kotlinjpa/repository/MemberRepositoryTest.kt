@@ -39,7 +39,7 @@ internal class MemberRepositoryTest(
         // then
         assertThat(findMember!!.id).isEqualTo(memberId)
         println("------------- 데이터 접근하기 전 -------------")
-        assertThat(findMember.team.name).isEqualTo(team.name)
+        assertThat(findMember.team!!.name).isEqualTo(team.name)
         println("------------- 데이터 접근 후 -------------")
     }
 

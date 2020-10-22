@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @DynamicUpdate
-class Member(username: String, email: String, team: Team) : BaseTimeEntity() {
+class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ class Member(username: String, email: String, team: Team) : BaseTimeEntity() {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "team_id")
-    var team: Team = team
+    var team: Team? = team
         protected set
 
     /*
@@ -35,7 +35,7 @@ class Member(username: String, email: String, team: Team) : BaseTimeEntity() {
         '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
      */
     init {
-        this.changeTeam(team)
+        this.changeTeam(team!!)
     }
 
     // 연관 관계 편의 메소드

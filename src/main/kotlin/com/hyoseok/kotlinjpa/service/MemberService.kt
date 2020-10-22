@@ -19,7 +19,7 @@ class MemberService(
 
     fun findMembers(id: Long, pageSize: Long): List<FindMemberDto> {
         return memberQueryRepository.pagenationNoOffset(id, pageSize)
-                .map { FindMemberDto(it.id!!, it.username, it.email, it.team.name) }
+                .map { FindMemberDto(it.id!!, it.username, it.email, it.team!!.name) }
     }
 
     fun findMember(memberId: Long): FindMemberDto? {
@@ -30,7 +30,7 @@ class MemberService(
         val member: Member = memberQueryRepository.findWithFetchJoinById(memberId)
                 ?: throw NotFoundMemberException(ErrorMessage.NOT_FOUND_MEMBER)
 
-        return FindMemberDto(null, member.username, member.email, member.team.name)
+        return FindMemberDto(null, member.username, member.email, member.team!!.name)
     }
 
     @Transactional

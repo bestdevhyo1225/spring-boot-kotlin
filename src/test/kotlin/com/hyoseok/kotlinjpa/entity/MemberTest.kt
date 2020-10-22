@@ -21,7 +21,7 @@ internal class MemberTest {
         // then
         assertThat(member.username).isEqualTo(username)
         assertThat(member.email).isEqualTo(email)
-        assertThat(member.team.name).isEqualTo(team.name)
+        assertThat(member.team!!.name).isEqualTo(team.name)
     }
 
     @Test
@@ -56,7 +56,7 @@ internal class MemberTest {
         member.changeTeam(teamB)
 
         // then
-        assertThat(member.team.name).isEqualTo(teamB.name)
+        assertThat(member.team!!.name).isEqualTo(teamB.name)
     }
 
     @Test
