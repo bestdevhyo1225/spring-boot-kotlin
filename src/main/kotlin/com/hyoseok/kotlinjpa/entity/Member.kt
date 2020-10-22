@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @DynamicUpdate
-class Member(username: String, email: String, team: Team): BaseTimeEntity() {
+class Member(username: String, email: String, team: Team) : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,15 @@ class Member(username: String, email: String, team: Team): BaseTimeEntity() {
     var team: Team = team
         protected set
 
+    /*
+        양방향 연관관계가 설정되었을 경우, 양쪽에 값을 입력해야 하기 때문에 서
+        '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
+     */
+    init {
+        this.changeTeam(team)
+    }
+
+    // 연관 관계 편의 메소드
     fun changeTeam(team: Team) {
         this.team = team
         team.members.add(this)
