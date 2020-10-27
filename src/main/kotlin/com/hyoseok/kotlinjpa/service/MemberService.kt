@@ -18,7 +18,7 @@ class MemberService(
 ) {
 
     fun findMembers(id: Long, pageSize: Long): List<FindMemberDto> {
-        return memberQueryRepository.pagenationNoOffset(id, pageSize)
+        return memberQueryRepository.paginationNoOffset(id, pageSize)
                 .map { FindMemberDto(it.id!!, it.username, it.email, it.team!!.name) }
     }
 

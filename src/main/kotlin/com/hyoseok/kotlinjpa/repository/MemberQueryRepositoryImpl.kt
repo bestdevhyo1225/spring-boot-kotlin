@@ -16,7 +16,7 @@ class MemberQueryRepositoryImpl(private val jpaQueryFactory: JPAQueryFactory) : 
                 .fetchOne()
     }
 
-    override fun pagenationNoOffset(id: Long, pageSize: Long): List<Member> {
+    override fun paginationNoOffset(id: Long, pageSize: Long): List<Member> {
         return jpaQueryFactory
                 .selectFrom(member)
                 .join(member.team).fetchJoin()
