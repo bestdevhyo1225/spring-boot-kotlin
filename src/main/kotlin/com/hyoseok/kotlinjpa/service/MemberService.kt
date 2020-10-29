@@ -19,7 +19,7 @@ class MemberService(
 
     fun findMembers(id: Long, pageSize: Long): List<FindMemberDto> {
         return memberQueryRepository.paginationNoOffset(id, pageSize)
-                .map { FindMemberDto(it.id!!, it.username, it.email, it.team!!.name) }
+                .map { FindMemberDto(it.id, it.username, it.email, it.team!!.name) }
     }
 
     fun findMember(memberId: Long): FindMemberDto? {
@@ -36,7 +36,7 @@ class MemberService(
     @Transactional
     fun createMember(username: String, email: String, teamName: String): Long {
         val member = Member(username, email, Team(teamName))
-        return memberRepository.save(member).id!!
+        return memberRepository.save(member).id
     }
 
     @Transactional

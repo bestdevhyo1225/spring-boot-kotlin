@@ -10,7 +10,7 @@ class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    val id: Long? = null
+    val id: Long = 0
 
     @Column(nullable = false)
     var username: String = username
@@ -23,6 +23,7 @@ class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var role: Role = Role.USER
+
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
@@ -35,7 +36,7 @@ class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
         '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
      */
     init {
-        this.changeTeam(team!!)
+        team?.let { this.changeTeam(team) }
     }
 
     // 연관 관계 편의 메소드

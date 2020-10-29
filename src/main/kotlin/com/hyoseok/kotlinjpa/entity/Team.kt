@@ -10,7 +10,7 @@ class Team(name: String) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "team_id")
-    val id: Long? = null
+    val id: Long = 0
 
     @Column(nullable = false)
     var name: String = name
