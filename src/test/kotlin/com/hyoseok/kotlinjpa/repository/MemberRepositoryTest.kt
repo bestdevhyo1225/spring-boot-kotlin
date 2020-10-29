@@ -33,7 +33,7 @@ internal class MemberRepositoryTest(
         entityManager.flush()
         entityManager.clear()
 
-        val findMember = memberRepository.findById(memberId!!)
+        val findMember = memberRepository.findById(memberId)
                 .orElseThrow { NoSuchElementException("존재하지 않는 회원입니다.") }
 
         // then
@@ -53,7 +53,7 @@ internal class MemberRepositoryTest(
         entityManager.clear()
 
         // when
-        val findMember = memberRepository.findById(member.id!!)
+        val findMember = memberRepository.findById(member.id)
                 .orElseThrow { NoSuchElementException("존재하지 않는 회원입니다.") }
 
         findMember.change("jang hyo seok", "hyoseok@gmail.com")
