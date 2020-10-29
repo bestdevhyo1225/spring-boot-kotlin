@@ -4,7 +4,6 @@ import com.hyoseok.kotlinjpa.controller.request.CreateMemberRequest
 import com.hyoseok.kotlinjpa.controller.response.CreateMemberResponse
 import com.hyoseok.kotlinjpa.controller.response.FindMemberResponse
 import com.hyoseok.kotlinjpa.controller.response.FindMembersResponse
-import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.service.MemberService
 import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
 import org.springframework.http.HttpStatus
@@ -33,11 +32,24 @@ class MemberController (
         return FindMemberResponse(id, memberDto.username, memberDto.email, memberDto.teamName)
     }
 
-    @GetMapping
+    @GetMapping("no-offset")
     @ResponseStatus(HttpStatus.OK)
-    fun findMembers(@RequestParam("lastMemberId", required = false, defaultValue = "0") id: Long,
-                    @RequestParam("pageSize") pageSize: Long): FindMembersResponse {
-        val memberDtos: List<FindMemberDto> = memberService.findMembers(id, pageSize)
+    fun findMembersByNoOffset(@RequestParam("lastMemberId", required = false, defaultValue = "0") id: Long,
+                              @RequestParam("pageSize") pageSize: Long): FindMembersResponse {
+        val memberDtos: List<FindMemberDto> = memberService.findMembersByNoOffset(id, pageSize)
+
+        return FindMembersResponse(memberDtos)
+    }
+
+    @GetMapping("covering-index")
+    @ResponseStatus(HttpStatus.OK)
+    fun findMembersByConveringIndex(@RequestParam("pageNo", defaultValue = "1") pageNo: Long,
+                                    @RequestParam("pageSize") pageSize: Long): FindMembersResponse {
+
+        val memberDtos: List<FindMemberDto> = memberService.findMembersByConveringIndex(
+                if (pageNo > 0) { pageNo } else { 1 },
+                pageSize
+        )
 
         return FindMembersResponse(memberDtos)
     }

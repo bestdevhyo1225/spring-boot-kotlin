@@ -17,9 +17,13 @@ class MemberService(
         private val memberRepository: MemberRepository
 ) {
 
-    fun findMembers(id: Long, pageSize: Long): List<FindMemberDto> {
+    fun findMembersByNoOffset(id: Long, pageSize: Long): List<FindMemberDto> {
         return memberQueryRepository.paginationNoOffset(id, pageSize)
                 .map { FindMemberDto(it.id, it.username, it.email, it.team!!.name) }
+    }
+
+    fun findMembersByConveringIndex(pageNo: Long, pageSize: Long): List<FindMemberDto> {
+        return memberQueryRepository.paginationCoveringIndex(pageNo - 1, pageSize)
     }
 
     fun findMember(memberId: Long): FindMemberDto? {
