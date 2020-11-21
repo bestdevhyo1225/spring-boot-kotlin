@@ -46,7 +46,7 @@ class MemberService(
     @Transactional
     fun updateMember(memberId: Long, username: String, email: String) {
         val member = memberRepository.findById(memberId)
-                .orElseThrow { NoSuchElementException("존재하지 않는 회원입니다.") }
+                .orElseThrow { NotFoundMemberException(ErrorMessage.NOT_FOUND_MEMBER) }
 
         member.change(username, email)
     }
