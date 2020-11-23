@@ -23,7 +23,6 @@ class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var role: Role = Role.USER
-
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
