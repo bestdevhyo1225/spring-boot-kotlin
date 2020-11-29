@@ -1,19 +1,27 @@
-# Spring Boot & Kotlin & Spring Data JPA & QueryDsl
+# Simple API
 
-- Spring Boot & Kotlin & Spring Data JPA & QueryDsl 연습
+- Spring Boot (Gradle)
+
+- Spring Web (MVC)
+
+- Spring Data JPA
+
+- Querydsl
+
+- Kotlin
+
+- JDK 11
 
 <br>
 
-## 목표
+## 인텔리제이 IDE 사용하는 경우
 
-- ToBe) 단일 모듈에서 멀티 모듈로 변경하기
+> Preferences 에서 Gradle 검색후, Build and run using을 Gradle -> IntelliJ IDEA로 수정하고, Run tests using을 Gradle -> IntelliJ IDEA로 수정하기
+
+![image1](https://user-images.githubusercontent.com/23515771/98190422-5516b000-1f5a-11eb-90c5-0b65bb8dcde2.png)
+
+> Preferences 에서 Annotation Processors 검색후, Enable annotation processing 체크하기
+
+![image2](https://user-images.githubusercontent.com/23515771/98190727-ff8ed300-1f5a-11eb-961e-a9af336b0994.png)
 
 <br>
-
-## 참고 자료
-
-- [코틀린에서 하이버네이트를 사용할 수 있을까?](https://woowabros.github.io/experience/2020/05/11/kotlin-hibernate.html)
-
-- [Spring Boot + Kotlin + JPA 적용하기 Entity 생성시 생각해볼 점들](https://blog.junu.dev/37)
-
-- [코틀린 null 처리 - ? ?. ?: !!, let, lateinit, 제너릭, 플랫폼 타입](https://tourspace.tistory.com/114)
