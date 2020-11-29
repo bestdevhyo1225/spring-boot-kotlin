@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: test
+
   datasource:
     url: jdbc:h2:mem:test
     username: sa
@@ -10,11 +13,12 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-#        show_sql: true
+        #         show_sql: true
         format_sql: true
-        use_sql_comments: true
+        #        use_sql_comments: true
+        default_batch_fetch_size: 100
+    open-in-view: false
 
-logging:
-  level:
-#    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+logging.level:
+  org.hibernate.SQL: debug
+# org.hibernate.type: trace

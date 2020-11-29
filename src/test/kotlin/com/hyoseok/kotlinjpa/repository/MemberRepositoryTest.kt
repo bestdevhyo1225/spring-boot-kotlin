@@ -7,16 +7,19 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.context.SpringBootTest
 import javax.persistence.EntityManager
+import javax.persistence.PersistenceContext
 
 // @SpringBootTest -> Component Scan을 함
 @DataJpaTest // Component Scan을 하지 않음
 @DisplayName("MemberRepository 테스트")
-internal class MemberRepositoryTest(
-        @Autowired private val memberRepository: MemberRepository,
-        @Autowired private val entityManager: EntityManager
-) {
+internal class MemberRepositoryTest {
+
+    @PersistenceContext
+    private lateinit var entityManager: EntityManager
+
+    @Autowired
+    private lateinit var memberRepository: MemberRepository
 
     @Test
     @DisplayName("Member 엔티티 저장")
@@ -25,7 +28,7 @@ internal class MemberRepositoryTest(
         val username = "hyoseok"
         val email = "test@gmail.com"
         val team = Team("teamA")
-        val member = Member(username, email, team)
+        val member = Member.create(username, email, team)
 
         // when
         val memberId = memberRepository.save(member).id
@@ -39,7 +42,7 @@ internal class MemberRepositoryTest(
         // then
         assertThat(findMember!!.id).isEqualTo(memberId)
         println("------------- 데이터 접근하기 전 -------------")
-        assertThat(findMember.team!!.name).isEqualTo(team.name)
+        assertThat(findMember.team.name).isEqualTo(team.name)
         println("------------- 데이터 접근 후 -------------")
     }
 
@@ -47,7 +50,7 @@ internal class MemberRepositoryTest(
     @DisplayName("Member 엔티티 수정")
     fun update() {
         // given
-        val member = memberRepository.save(Member("hyoseok", "test@gmail.com", Team("teamA")));
+        val member = memberRepository.save(Member.create("hyoseok", "test@gmail.com", Team("teamA")));
 
         entityManager.flush()
         entityManager.clear()

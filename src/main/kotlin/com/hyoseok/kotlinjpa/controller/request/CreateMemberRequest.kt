@@ -6,12 +6,12 @@ import javax.validation.constraints.NotEmpty
 class CreateMemberRequest {
 
     @get:NotEmpty(message = "username은 반드시 입력해야 합니다.")
-    var username: String? = null
+    lateinit var username: String
 
     @get:Email(message = "email 형식이 맞지 않습니다.")
-    var email: String? = null
+    lateinit var email: String
 
     @get:NotEmpty(message = "team name은 반드시 입력해야 합니다.")
-    var teamName: String? = null
+    lateinit var teamName: String
 
 }

@@ -19,14 +19,14 @@ class MemberService(
 
     fun findMembersByNoOffset(id: Long, pageSize: Long): List<FindMemberDto> {
         return memberQueryRepository.paginationNoOffset(id, pageSize)
-                .map { FindMemberDto(it.id, it.username, it.email, it.team!!.name) }
+                .map { FindMemberDto(it.id, it.username, it.email, it.team.name) }
     }
 
     fun findMembersByConveringIndex(pageNo: Long, pageSize: Long): List<FindMemberDto> {
         return memberQueryRepository.paginationCoveringIndex(pageNo - 1, pageSize)
     }
 
-    fun findMember(memberId: Long): FindMemberDto? {
+    fun findMember(memberId: Long): FindMemberDto {
         /*
         * ?: 연산자 (Elvis operator)
         * 좌항이 null이면, null을 반환한다.
@@ -34,12 +34,12 @@ class MemberService(
         val member: Member = memberQueryRepository.findWithFetchJoinById(memberId)
                 ?: throw NotFoundMemberException(ErrorMessage.NOT_FOUND_MEMBER)
 
-        return FindMemberDto(null, member.username, member.email, member.team!!.name)
+        return FindMemberDto(null, member.username, member.email, member.team.name)
     }
 
     @Transactional
     fun createMember(username: String, email: String, teamName: String): Long {
-        val member = Member(username, email, Team(teamName))
+        val member = Member.create(username, email, Team(teamName))
         return memberRepository.save(member).id
     }
 

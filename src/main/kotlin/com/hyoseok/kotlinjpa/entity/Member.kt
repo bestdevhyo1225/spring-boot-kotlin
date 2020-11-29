@@ -5,19 +5,20 @@ import javax.persistence.*
 
 @Entity
 @DynamicUpdate
-class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
+@Table(name = "member")
+class Member : BaseTimeEntity() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    val id: Long = 0
+    val id: Long = 0L
 
     @Column(nullable = false)
-    var username: String = username
+    lateinit var username: String
         protected set
 
     @Column(nullable = false)
-    var email: String = email
+    lateinit var email: String
         protected set
 
     @Enumerated(EnumType.STRING)
@@ -27,15 +28,24 @@ class Member(username: String, email: String, team: Team?) : BaseTimeEntity() {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "team_id")
-    var team: Team? = team
+    lateinit var team: Team
         protected set
 
-    /*
-        양방향 연관관계가 설정되었을 경우, 양쪽에 값을 입력해야 하기 때문에
-        '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
-     */
-    init {
-        team?.let { this.changeTeam(team) }
+    companion object {
+        @JvmStatic
+        fun create(username: String, email: String, team: Team?): Member {
+            val member = Member()
+
+            member.username = username
+            member.email = email
+            /*
+             * 양방향 연관관계가 설정되었을 경우, 양쪽에 값을 입력해야 하기 때문에
+             * '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
+             * */
+            team?.let { it -> member.changeTeam(it) }
+
+            return member
+        }
     }
 
     // 연관 관계 편의 메소드

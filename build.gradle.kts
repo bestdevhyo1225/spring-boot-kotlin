@@ -7,11 +7,12 @@ plugins {
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
 	kotlin("plugin.jpa") version "1.3.72"
-	kotlin("plugin.allopen") version "1.3.72" // JPA Proxy 객체를 만들기 위해서 반드시 적용해야 함
-	/*  [ querydsl 설정을 위한 추가 ]
-		Java Compiler가 Annotation Processing을 실행하는 과정에서 Kotlin 코드를 인지할 수 없어서
-		JPA Entity class의 쿼리 타입을 생성할 수 없다. 따라서 Kotlin 코드의 Annotation Process을 지원하는 kapt 플로그인을 적용한다.
-	*/
+	/* JPA Proxy 객체를 만들기 위해서 반드시 적용해야 함 */
+	kotlin("plugin.allopen") version "1.3.72"
+	/* [ querydsl 설정을 위한 추가 ]
+	 * Java Compiler가 Annotation Processing을 실행하는 과정에서 Kotlin 코드를 인지할 수 없어서
+	 * JPA Entity class의 쿼리 타입을 생성할 수 없다. 따라서 Kotlin 코드의 Annotation Process을 지원하는 kapt 플로그인을 적용한다.
+	 * */
 	kotlin("kapt") version "1.3.72"
 }
 
@@ -53,6 +54,8 @@ dependencies {
 	/* querydsl 추가 끝 */
 
 	compileOnly("org.projectlombok:lombok")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly("mysql:mysql-connector-java")
 	runtimeOnly("com.h2database:h2")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

@@ -16,12 +16,12 @@ internal class MemberTest {
         val team = Team("teamA")
 
         // when
-        val member = Member(username, email, team)
+        val member = Member.create(username, email, team)
 
         // then
         assertThat(member.username).isEqualTo(username)
         assertThat(member.email).isEqualTo(email)
-        assertThat(member.team!!.name).isEqualTo(team.name)
+        assertThat(member.team.name).isEqualTo(team.name)
     }
 
     @Test
@@ -31,7 +31,7 @@ internal class MemberTest {
         val username = "hyoseok"
         val email = "test@gmail.com"
         val team = Team("teamA")
-        val member = Member(username, email, team)
+        val member = Member.create(username, email, team)
 
         // when
         member.change("jang", "test1234@gmail.com")
@@ -50,13 +50,13 @@ internal class MemberTest {
 
         val username = "hyoseok"
         val email = "test@gmail.com"
-        val member = Member(username, email, teamA)
+        val member = Member.create(username, email, teamA)
 
         // when
         member.changeTeam(teamB)
 
         // then
-        assertThat(member.team!!.name).isEqualTo(teamB.name)
+        assertThat(member.team.name).isEqualTo(teamB.name)
     }
 
     @Test
@@ -66,7 +66,7 @@ internal class MemberTest {
         val username = "hyoseok"
         val email = "test@gmail.com"
         val team = Team("team")
-        val member = Member(username, email, team)
+        val member = Member.create(username, email, team)
 
         // when
         member.changeRole(Role.ADMIN)

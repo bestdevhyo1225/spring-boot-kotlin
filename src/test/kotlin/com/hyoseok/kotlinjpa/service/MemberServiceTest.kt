@@ -1,6 +1,5 @@
 package com.hyoseok.kotlinjpa.service
 
-import com.hyoseok.kotlinjpa.entity.Member
 import com.hyoseok.kotlinjpa.repository.MemberRepository
 import com.hyoseok.kotlinjpa.service.dto.FindMemberDto
 import org.assertj.core.api.Assertions.*
@@ -15,10 +14,13 @@ import org.springframework.transaction.annotation.Transactional
 @SpringBootTest
 @Transactional(readOnly = true)
 @DisplayName("MemberService 테스트")
-internal class MemberServiceTest(
-        @Autowired private val memberRepository: MemberRepository,
-        @Autowired private val memberService: MemberService
-) {
+internal class MemberServiceTest {
+
+    @Autowired
+    private lateinit var memberRepository: MemberRepository
+
+    @Autowired
+    private lateinit var memberService: MemberService
 
     @AfterEach
     fun tearDown() {
@@ -36,7 +38,7 @@ internal class MemberServiceTest(
 
         // when
         val memberId: Long = memberService.createMember(username, email, teamName)
-        val memberDto: FindMemberDto = memberService.findMember(memberId)!!
+        val memberDto: FindMemberDto = memberService.findMember(memberId)
 
         // then
         assertThat(memberDto.username).isEqualTo(username)
@@ -56,7 +58,7 @@ internal class MemberServiceTest(
 
         // when
         memberService.updateMember(memberId, changeUsername, changeEmail)
-        val memberDto: FindMemberDto = memberService.findMember(memberId)!!
+        val memberDto: FindMemberDto = memberService.findMember(memberId)
 
         // then
         assertThat(memberDto.username).isEqualTo(changeUsername)
