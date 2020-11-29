@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.annotation.Commit
 import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
@@ -49,7 +48,6 @@ internal class MemberServiceTest {
     @Test
     @DisplayName("회원의 정보를 수정한다.")
     @Transactional
-    @Commit
     fun updateMember() {
         // given
         val memberId: Long = memberService.createMember("hyoseok", "test1234@gmail.com", "teamA")
