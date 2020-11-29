@@ -33,7 +33,7 @@ class Member : BaseTimeEntity() {
 
     companion object {
         @JvmStatic
-        fun create(username: String, email: String, team: Team?): Member {
+        fun create(username: String, email: String, team: Team): Member {
             val member = Member()
 
             member.username = username
@@ -42,7 +42,7 @@ class Member : BaseTimeEntity() {
              * 양방향 연관관계가 설정되었을 경우, 양쪽에 값을 입력해야 하기 때문에
              * '연관 관계 편의 메소드'를 사용해서 앙쪽의 값을 입력하자
              * */
-            team?.let { it -> member.changeTeam(it) }
+            member.changeTeam(team)
 
             return member
         }
