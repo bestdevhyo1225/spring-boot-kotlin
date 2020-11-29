@@ -8,6 +8,12 @@ import javax.persistence.*
 @Table(name = "member")
 class Member : BaseTimeEntity() {
 
+    /*
+    * 중간에 보면, protected 접근 제한자를 지정했음
+    * -> 가장 먼저 외부에서 엔티티의 필드 값을 변경하지 못하도록 하기 위함 (엔티티 클래스 내부에서만 변경 가능)
+    * -> private를 사용하지 않은 이유? open class로 처리되어 있기 때문에 private로 세팅하면 컴파일 에러가 발생함
+    * */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
