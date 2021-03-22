@@ -1,6 +1,7 @@
 package com.hyoseok.kotlinjpa.entity
 
 import org.hibernate.annotations.DynamicUpdate
+import java.util.*
 import javax.persistence.*
 
 @Entity
